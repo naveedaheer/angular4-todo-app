@@ -7,11 +7,14 @@ import {AngularFire, AuthProviders, AuthMethods, FirebaseListObservable} from 'a
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
+
 export class TodoComponent implements OnInit {
 
   items: FirebaseListObservable<any>;
   name: any;
-  todoItem: string = '';
+  text: string = '';
+  todoState = 'default';
+  oldText;
 
   constructor(public af: AngularFire){
     this.items = af.database.list('/todos', {query:{limitToLast: 50}});
@@ -33,14 +36,20 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  save(text: string){
+  saveTodo(text: string){
     this.items.push({todo: text})
-    this.todoItem = '';
+    this.text = '';
+  }
+
+  editTodo(todo) {
+    this.todoState = 'edit';
+    this.oldText = this.text;
+    this.text = todo.text;
   }
 
     upateTodo(postText: string){
     this.items.push({todo: postText})
-    this.todoItem = '';
+    this.text = '';
   }
 
 }

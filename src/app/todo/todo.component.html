@@ -1,7 +1,7 @@
 <div class="row columns">
   <button (click)="login()" *ngIf="!name" type="">Anonymous Login</button>
-  <input *ngIf="name" id="message" placeholder="Add todo" type="text" (keyup.enter)="save($event.target.value)" [(ngModel)]="todoItem" name="" value="" >
+  <input *ngIf="name" id="message" placeholder="Add todo" type="text" (keyup.enter)="saveTodo($event.target.value)" [(ngModel)]="text" name="" value="" >
   <div id="details container">
-    <p *ngFor="let item  of items | async" >{{item.todo}}</p>
+    <p *ngFor="let item  of items | async" ><span (click)="editTodo(item)">{{item.todo}}</span></p>
   </div>
 </div>
